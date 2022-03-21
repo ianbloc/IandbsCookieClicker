@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I&B's Cookie Bakery</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+    .upgrades {
+        position:sticky;
+    }
+    .cookie {
+        position:absolute;
+        width:100px;
+        top:4cm;
+        left:1cm;
+    }
+    </style>
+</head>
+<body>
+    <img src="Cookie.png" id="cookie" class="cookie">
+    <div class="w3-card-4" class="upgrades">
+        <header class="w3-container w3-blue">
+          <h1>Upgrades</h1>
+        </header>
+        <div class="w3-container">
+            <span id="upgradecost">10 </span>
+            <span>Cookies - +1 click</span>
+            <br>
+            <button id="upgrade">Upgrade</button>
+        </div>
+        <div class="w3-container">
+            <span id="upgradecost2">40 </span>
+            <span>Cookies - +1 autoclicker</span>
+            <br>
+            <button id="upgrade2">Upgrade</button>
+          </div>
+        <footer class="w3-container w3-blue">
+          <span class="cookiecounter1">Cookies: </span>
+          <span class="cookiecounter2" id="cookiecounter2">0</span>
+        </footer>    
+    </div>
+</body>
+<script>
+(() => {
+document.querySelector("#cookie").addEventListener('click', clickedcookie);
+document.querySelector("#upgrade").addEventListener('click', upgradeclicks);
+document.querySelector("#upgrade2").addEventListener('click', upgradeautoclicker);
+let toppos = Math.floor(Math.random() * 8) + 6;
+console.log(toppos);
+document.getElementById("cookie").style.top=toppos + "cm";
+let leftpos = Math.floor(Math.random() * 31) + 1;
+console.log(leftpos);
+document.getElementById("cookie").style.left=leftpos + "cm";
+let autoclicker = false;
+let cookies = 0;
+let clickamount = 1;
+let autoclickeramount = 0;
+let upgradecost = 10;
+let upgradecost2 = 40;
+function upgradeclicks() {
+    if(upgradecost <= cookies) {
+        cookies = cookies - upgradecost;
+        clickamount = clickamount + 1;
+        upgradecost = upgradecost + 10;
+    }
+}
+function upgradeautoclicker() {
+    if(upgradecost2 <= cookies) {
+        autoclicker = true;
+        cookies = cookies - upgradecost2;
+        upgradecost2 = upgradecost2 + 40;
+        autoclickeramount = autoclickeramount + 1;
+    }
+}
+function loop() {
+    setInterval(() => {
+        document.getElementById("cookiecounter2").innerHTML = cookies;
+        document.getElementById("upgradecost").innerHTML = upgradecost;
+        document.getElementById("upgradecost2").innerHTML = upgradecost2;
+    },100);
+}
+function loop2() {
+    setInterval(() => {
+        cookies = cookies + autoclickeramount;
+    },1000);
+}
+function clickedcookie() {
+    cookies = cookies + clickamount;
+    toppos = Math.floor(Math.random() * 8) + 6;
+    console.log(toppos);
+    document.getElementById("cookie").style.top=toppos + "cm";
+    leftpos = Math.floor(Math.random() * 31) + 1;
+    console.log(leftpos);
+    document.getElementById("cookie").style.left=leftpos + "cm";
+}
+loop();
+loop2();
+})();
+</script>
+</html>
